@@ -1,21 +1,29 @@
 nodes_debug = {
-    'Geth (Constantinople)': {
-    	'url': 'http://localhost:8546',
-    	'explorer': "https://etherscan.io/block/%s",
+    'Geth Classic (Atlantis)': {
+    	'url': 'http://localhost:8545',
+    	'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
     },
-    'Parity (Constantinople)': {
-        'url': 'http://localhost:8547',
-        'explorer': "https://etherscan.io/block/%s",
+    'Multi Geth (Atlantis)': {
+        'url': 'http://localhost:9545',
+        'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
+    },
+    'Parity Ethereum (Atlantis)': {
+        'url': 'http://localhost:10545',
+        'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
     },
 }
 
 nodes_prod = {
-    'Geth (Constantinople)': {
-        'url': 'http://172.31.0.19:8545',
-        'explorer': "https://etherscan.io/block/%s",
+    'Geth Classic (Atlantis)': {
+    	'url': 'http://127.0.0.1:8545',
+    	'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
     },
-    'Parity (Constantinople)': {
-        'url': 'http://172.31.7.228:8545',
-        'explorer': "https://etherscan.io/block/%s",
+    'Multi Geth (Atlantis)': {
+        'url': 'http://127.0.0.1:9545',
+        'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
+    },
+    'Parity Ethereum (Atlantis)': {
+        'url': 'http://127.0.0.1:10545',
+        'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
     },
 }
