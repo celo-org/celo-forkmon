@@ -11,6 +11,10 @@ nodes_debug = {
         'url': 'http://localhost:10545',
         'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
     },
+    'Parity Ethereum (Legacy)': {
+        'url': 'http://localhost:18545',
+        'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
+    },
 }
 
 nodes_prod = {
@@ -24,6 +28,10 @@ nodes_prod = {
     },
     'Parity Ethereum (Atlantis)': {
         'url': 'http://163.172.154.197:10545',
+        'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
+    },
+    'Parity Ethereum (Legacy)': {
+        'url': 'http://163.172.154.197:18545',
         'explorer': "https://blockscout.com/etc/mainnet/blocks/%s",
     },
 }
