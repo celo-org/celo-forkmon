@@ -1,8 +1,8 @@
 # Phoenix Monitor
 Ethereum Classic Phoenix Protocol Upgrade Monitor
 
-- Live: http://phoenix.fault.dev (Production Nodes)
-- Mirror: http://ph03n1x.fault.dev (Fallback Nodes)
+- Live: https://phoenix.fault.dev (Production Nodes)
+- Redundancy: https://ph03n1x.fault.dev (Fallback Nodes)
 
 ### Install
 
