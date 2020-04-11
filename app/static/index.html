@@ -7,22 +7,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js" crossorigin="anonymous"></script>
     <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
-    <title>Nazgul Atlantis chainstate</title>
+    <title>Ethereum Classic Phoenix Upgrade Monitor</title>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Nazgul Atlantis chain state</h1>
-                <p><em>Make sure to upgrade your node before the Atlantis hardfork, scheduled for around September 13, 2019. 
-                </em>
-
+                <h1>Ethereum Classic Phoenix Upgrade Monitor</h1>
+                <p><em>Make sure to upgrade your node before the Phoenix hardfork, scheduled for around June 04, 2020, at block 10500839.</em>
                     <ul>
-                        <li><a href="https://github.com/etclabscore/go-ethereum/releases/tag/v6.0.9">Geth Classic 6.0.9-stable</a></li>
-                        <li><a href="https://github.com/paritytech/parity-ethereum/releases/tag/v2.5.7">Parity Ethereum 2.5.7-stable</a></li>
-                        <li><a href="https://github.com/multi-geth/multi-geth/releases/tag/v1.9.2">Multi-Geth 1.9.2-stable</a></li>
-
+                        <li class="text-success"><a target="_blank" href="https://github.com/etclabscore/core-geth/releases">Core-Geth 1.11.0</a> or later supports Phoenix.</li>
+                        <li class="text-success"><a target="_blank" href="https://github.com/hyperledger/besu/releases">Hyperledger Besu 1.4.1</a> or later supports Phoenix.</li>
+                        <li class="text-warning"><del><a target="_blank" href="https://github.com/openethereum/openethereum/releases">Open Ethereum 2.7.2</a></del> does not have a release with Phoenix, yet.
+                            Parity users can use this chainspec: <a target="_blank" href="https://github.com/openethereum/openethereum/pull/11598/files#diff-c08b9567aa720fae30a93185e08a6d21">#11598</a>.</li>
+                        <li class="text-success"><a target="_blank" href="https://github.com/multi-geth/multi-geth/releases">Multi-Geth 1.9.14</a> or later supports Phoenix.</li>
+                        <li class="text-danger"><del><a target="_blank" href="https://github.com/etclabscore/go-ethereum/releases">Geth Classic 6.1.2</a></del> is no longer maintained, please use <a target="_blank" href="https://github.com/etclabscore/core-geth/releases">Core-Geth</a>.</li>
+                        <li class="text-danger"><del><a target="_blank" href="https://github.com/input-output-hk/mantis/releases">IOHK Mantis 1.1-rc4</a></del> is no longer maintained, please use <a target="_blank" href="https://github.com/hyperledger/besu/releases">Hyperledger Besu</a>.</li>
                     </ul>
+                    Check also the Phoenix dashboard on <a target="_blank" href="https://etcnodes.org/phoenix">etcnodes.org/phoenix</a>.
+                    Read the Phoenix <a target="_blank" href="https://ecips.ethereumclassic.org/ECIPs/ecip-1088">ECIP-1088</a>.
                 </p>
                 <table class="table" id="blockinfos">
                 </table>
@@ -31,25 +34,24 @@
         <div class="row">
             <div class="col-md-12">
                 <style>
-
                 .node text {
                   text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
                 }
 
                 .canonical-node circle {
-                  fill: #555;
+                  fill: #007831;
                 }
 
                 .canonical-node text {
-                    fill: #555;
+                    fill: #007831;
                 }
 
                 .uncle-node circle {
-                    fill: #999;
+                    fill: #01C853;
                 }
 
                 .uncle-node text {
-                    fill: #999;
+                    fill: #01C853;
                 }
 
                 .link {
@@ -85,6 +87,12 @@
                 <script src="//d3js.org/d3.v4.min.js"></script>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-muted">Fork me on <a target="_blank" href="https://github.com/byz-f/phoenix-monitor">github.com/byz-f/phoenix-monitor</a>.
+                    Impressum auf <a target="_blank" href="https://byzantine.fault.dev">byzantine.fault.dev</a>.</p>
+            </div>
+        </div>
     </div>
 
     <script id="state-template" type="text/x-handlebars-template">
@@ -92,10 +100,16 @@
             <tr>
                 <th></th>
                 {{#latest}}
-                    <th><span style="">{{name}}</span></th>
+                    <th><span style="">{{clean}}</span></th>
                 {{/latest}}
             </tr>
         </thead>
+        <tr>
+            <th>Fork Config <span title="Configuration of how the client should determine the best block." style="color: #555" class="glyphicon glyphicon-question-sign"></span></th>
+            {{#latest}}
+                <td><span class="{{forkStyle}}">{{fork}}</span></td>
+            {{/latest}}
+        </tr>
         <tr>
             <th>Block</th>
             {{#latest}}
@@ -111,25 +125,25 @@
         <tr>
             <th>Difficulty <span title="Difficulty of creating a block, relative to the most difficult chain." style="color: #555" class="glyphicon glyphicon-question-sign"></span></th>
             {{#latest}}
-                <td>{{difficulty}}%</td>
+                <td><span class="{{diffStyle}}">{{difficulty}}%</span></td>
             {{/latest}}
         </tr>
         <tr>
             <th>Total Difficulty <span title="Sum of block difficulty values since the fork, relative to the chain with highest total difficulty." style="color: #555" class="glyphicon glyphicon-question-sign"></span></th>
             {{#latest}}
-                <td>{{totalDifficulty}}%</td>
+                <td><span class="{{tdStyle}}">{{totalDifficulty}}%</span></td>
             {{/latest}}
         </tr>
         <tr>
             <th>Block interval <span title="Average number of seconds between blocks, for the past 100 blocks." style="color: #555" class="glyphicon glyphicon-question-sign"></span></th>
             {{#latest}}
-                <td>{{blockInterval}} sec</td>
+                <td><span class="{{intervalStyle}}">{{blockInterval}} sec</span></td>
             {{/latest}}
         </tr>
         <tr>
             <th>Hash rate <span title="Approximate number of hashes/sec computed by miners, derived from difficulty and block interval." style="color: #555" class="glyphicon glyphicon-question-sign"></span></th>
             {{#latest}}
-                <td>{{hashRate}} GH/s</td>
+                <td><span class="{{hashRateStyle}}">{{hashRate}} GH/s</span></td>
             {{/latest}}
         </tr>
     </script>
@@ -267,7 +281,7 @@
             }
 
             var latest = nodes.map(function(n) { return n.block.timestamp; }).reduce(function(a, b) { return Math.max(a, b); }, 0);
-            
+
             var subgraphs = findSubgraphs(nodes);
             subgraphs.sort(function(a, b) {
                 function totalDifficulty(nodes) {
@@ -323,8 +337,8 @@
             var link = g.selectAll(".link")
                 .data(edges, function(d) { return [d[0].block.hash, d[1].block.hash]; });
             link.transition(t)
-                .attr("class", function(d) { 
-                    return "link" + ((d[0].canonical && d[1].canonical)?" canonical-link":" uncle-link"); 
+                .attr("class", function(d) {
+                    return "link" + ((d[0].canonical && d[1].canonical)?" canonical-link":" uncle-link");
                 })
                 .attr("d", function(d) {
                     var fromNode = d[0],
@@ -336,8 +350,8 @@
                         + " " + fromNode.x + "," + fromNode.y;
                 });
             link.enter().append("path")
-                .attr("class", function(d) { 
-                    return "link" + ((d[0].canonical && d[1].canonical)?" canonical-link":" uncle-link"); 
+                .attr("class", function(d) {
+                    return "link" + ((d[0].canonical && d[1].canonical)?" canonical-link":" uncle-link");
                 })
                 .attr("d", function(d) {
                     var fromNode = d[0],
@@ -376,7 +390,7 @@
                 allBlocks[node.hash] = node;
                 lastTimestamp = Math.max(lastTimestamp, node.timestamp);
             }
-            
+
             buildGraph(allBlocks);
         }
 
@@ -405,16 +419,6 @@
                 }
             });
         });
-    </script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-84449-10', 'auto');
-      ga('send', 'pageview');
-
     </script>
 </body>
 </html>
