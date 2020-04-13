@@ -213,6 +213,7 @@ def build_block_info(clientname):
         hashRateStyle = "text-warning"
     else:
         hashRateStyle = "text-danger"
+    clientversion = clientname.split(',')[2]
     clientfork = clientname.split(',')[1]
     forkStyle = "text-muted"
     cleanname = clientname.split(',')[0]
@@ -240,6 +241,7 @@ def build_block_info(clientname):
         'name': clientname,
         'clean': cleanname,
         'fork': clientfork,
+        'version': clientversion,
         'forkStyle': forkStyle,
         'explore': get_nodes()[clientname]['explorer'] % (latest['number'],),
         'diffStyle': diffStyle,

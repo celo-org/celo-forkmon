@@ -111,6 +111,12 @@
             {{/latest}}
         </tr>
         <tr>
+            <th>Version</th>
+            {{#latest}}
+                <td>{{version}}</td>
+            {{/latest}}
+        </tr>
+        <tr>
             <th>Block</th>
             {{#latest}}
                 <td><a href="{{explore}}">{{shortHash}}</a></td>
