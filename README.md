@@ -1,8 +1,8 @@
-# Phoenix Monitor
-Ethereum Classic Phoenix Protocol Upgrade Monitor
+# Fork Monitor
+Ethereum Classic Hard-Fork Monitor
 
-- Live: https://phoenix.fault.dev (Production Nodes)
-- Redundancy: https://ph03n1x.fault.dev (Fallback Nodes)
+- Live: https://classic.fork.fault.dev
+- Testnet: https://mordor.fork.fault.dev
 
 ### Install
 
