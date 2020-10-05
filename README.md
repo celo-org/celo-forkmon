@@ -3,6 +3,7 @@ Ethereum Classic Hard-Fork Monitor
 
 - Live: https://classic.fork.fault.dev
 - Testnet: https://mordor.fork.fault.dev
+- Testnet: https://kotti.fork.fault.dev
 
 ### Install
 
