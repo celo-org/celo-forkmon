@@ -17,3 +17,8 @@ pip3 install -r requirements.txt
 ```bash
 python3 "./app/main.py" FLASK_RUN_PORT=15674 flask run
 ```
+
+### Access
+```bash
+http://localhost:5000/
+```
