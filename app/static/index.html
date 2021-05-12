@@ -384,7 +384,7 @@
         $(document).ready(function() {
             loadData();
 
-            var intervalId = window.setInterval(loadData, 10000);
+            var intervalId = window.setInterval(loadData, 2500);
             $(window).blur(function() {
                 if(intervalId != undefined) {
                     window.clearInterval(intervalId);
@@ -394,7 +394,7 @@
             $(window).focus(function() {
                 if(intervalId == undefined) {
                     loadData();
-                    intervalId = window.setInterval(loadData, 10000);
+                    intervalId = window.setInterval(loadData, 2500);
                 }
             });
         });
