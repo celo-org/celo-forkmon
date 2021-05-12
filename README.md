@@ -4,7 +4,7 @@ Celo Hard-Fork Monitor
 ### requirements
 
 #### Python
-(https://www.python.org/downloads/)[https://www.python.org/downloads/]
+[https://www.python.org/downloads/](https://www.python.org/downloads/)
 
 ### Install
 
