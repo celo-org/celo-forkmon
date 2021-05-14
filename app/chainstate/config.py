@@ -1,5 +1,5 @@
 nodes_production = {
-    'Forno,(Donut Activated),v1.3.2': {
+    'Forno,(Donut-Enabled Node),v1.3.2': {
         'url': 'https://forno.celo.org',
         'explorer': "https://explorer.celo.org/blocks/%s",
     },

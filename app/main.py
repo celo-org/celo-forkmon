@@ -40,15 +40,16 @@ def to_dict(block):
     retain the bare essentials in memory, also converting hashes (ByteArray) into
     regular hex-strings
     """
+    blockCountDown = 6774000 - block['number']
     parentHash = hash_of(block['parentHash'])
     return {
         'number': block['number'],
         'timestamp': block['timestamp'],
         'hash': hash_of(block),
         'size': block['size'],
-        'gasUsed': block['gasUsed'],
         'parentHash' : parentHash,
         'parents': [parentHash],
+        'blockCountDown': blockCountDown
     }
 
 clients = {}
@@ -155,6 +156,7 @@ def build_block_info(clientname):
     latest = get_latest_block(clientname)
     latestNumber = int(latest['number'])
     latestTimestamp = latest['timestamp']
+    blockCountDown = 6774000 - latestNumber
     blockInterval = 0
     diffStyle = "text-muted"
     tdStyle = "text-muted"
@@ -205,6 +207,7 @@ def build_block_info(clientname):
         'diffStyle': diffStyle,
         'tdStyle': tdStyle,
         'intervalStyle': intervalStyle,
+        'blockCountDown': blockCountDown,
     }
 
 def build_block_infos():

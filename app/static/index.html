@@ -13,13 +13,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Celo Donut Upgrade Monitor</h1>
+                <h1>🍩🍩Celo Donut Upgrade Monitor🍩🍩</h1>
                 <p><em>Make sure to upgrade your node before the Donut Hardfork, scheduled for around May 19, 2021, at block 6774000.</em>
                     <ul>
                         <li class="text-success"><a target="_blank" href="https://github.com/celo-org/celo-blockchain/releases/tag/v1.3.2">Celo-Blockchain 1.3.2</a> supports Donut.</li>
                     </ul>
                     Read the Donut <a target="_blank" href="https://github.com/celo-org/celo-proposals/blob/master/CIPs/cip-0027.md">CIP-27</a>.
                 </p>
+                <div class="row">
+                  <h2>Countdown Until Donut Hardfork Blocknumber: <span id="blockcountdown"></span></h2>
+                </div>
+                <div class="row">
+                  <span id="donutactive">Donut Has Activated on Celo! 🎉🎉</span>
+                </div>
                 <table class="table" id="blockinfos">
                 </table>
             </div>
@@ -86,7 +92,13 @@
             </div>
         </div>
     </div>
-
+    <script id="block-countdown-template" type="text/x-handlebars-template">
+      <div class="col-md-12">
+      {{#latest}}
+          <h2>Countdown Until Donut Hardfork Blocknumber: {{blockCountDown}}</h2>
+      {{/latest}}
+      </div>
+    </script>
     <script id="state-template" type="text/x-handlebars-template">
         <thead>
             <tr>
@@ -363,13 +375,22 @@
         function processData(response) {
             var template = Handlebars.compile($("#state-template").html());
             $("#blockinfos").html(template(response));
-
-            for(var i = 0; i < response.nodes.length; i++) {
+            blockCountDown = 0;
+            forkActivated = false;
+            for (var i = 0; i < response.nodes.length; i++) {
                 var node = response.nodes[i];
                 allBlocks[node.hash] = node;
                 lastTimestamp = Math.max(lastTimestamp, node.timestamp);
+                if (i != 2) {
+                  blockCountDown = node.blockCountDown;
+                  donutActivated = node.number > 6774000;
+                  if (donutActivated) {
+                    forkActivated = true;
+                  }
+                }
             }
-
+            $('#blockcountdown').text(blockCountDown);
+            $('#donutactive').toggle(forkActivated)
             buildGraph(allBlocks);
         }
 
