@@ -8,12 +8,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js" crossorigin="anonymous"></script>
     <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <title>Celo Donut Upgrade Monitor</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>🍩🍩Celo Donut Upgrade Monitor🍩🍩</h1>
+                <style>
+                .main-title {
+                  font-family: 'EB Garamond', serif;
+                }
+                .red-block {
+                  color: red;
+                }
+                </style>
+                <h1 class="main-title">Celo Donut Upgrade Monitor 🍩🍩</h1>
                 <p><em>Make sure to upgrade your node before the Donut Hardfork, scheduled for around May 19, 2021, at block 6774000.</em>
                     <ul>
                         <li class="text-success"><a target="_blank" href="https://github.com/celo-org/celo-blockchain/releases/tag/v1.3.2">Celo-Blockchain 1.3.2</a> supports Donut.</li>
@@ -21,10 +31,11 @@
                     Read the Donut <a target="_blank" href="https://github.com/celo-org/celo-proposals/blob/master/CIPs/cip-0027.md">CIP-27</a>.
                 </p>
                 <div class="row">
-                  <h2>Countdown Until Donut Hardfork Blocknumber: <span id="blockcountdown"></span></h2>
+                  <h2 class="main-title">Countdown Until Donut Hardfork:</h2> 
+                  <h3 class="main-title"><span class="red-block" id="blockcountdown"></span> Blocks</h3>
                 </div>
                 <div class="row">
-                  <span id="donutactive">Donut Has Activated on Celo! 🎉🎉</span>
+                  <h3 class="main-title"><span id="donutactive">🎉🎉 Donut Has Activated on Celo! 🎉🎉</span></h3>
                 </div>
                 <table class="table" id="blockinfos">
                 </table>
